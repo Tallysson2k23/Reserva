@@ -1,0 +1,41 @@
+<!-- cadastroVeiculos.html -->
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initialscale=1.0">
+ <title>Cadastro de Veículos</title>
+</head>
+<body>
+ <h1>Cadastro de Veículos</h1>
+ <form id="formVeiculo">
+ <label for="modelo">Modelo:</label>
+ <input type="text" id="modelo" name="modelo" required><br><br>
+ <label for="marca">Marca:</label>
+ <input type="text" id="marca" name="marca" required><br><br>
+ <button type="submit">Cadastrar Veículo</button>
+ </form>
+ <script>
+
+document.getElementById('formVeiculo').addEventListener('submit',
+function(event) {
+ event.preventDefault();
+ const modelo = document.getElementById('modelo').value;
+ const marca = document.getElementById('marca').value;
+ fetch('/veiculos', {
+ method: 'POST',
+headers: {
+ 'Content-Type': 'application/json'
+ },
+body: JSON.stringify({ modelo, marca })
+ })
+ .then(response => response.json())
+ .then(data => {
+ alert(data.message);
+ document.getElementById('formVeiculo').reset();
+ })
+ .catch(error => console.error('Erro:', error));
+ });
+ </script>
+</body>
+</html>

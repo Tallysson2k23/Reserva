@@ -1,0 +1,59 @@
+<!-- reservaVeiculos.html -->
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initialscale=1.0">
+ <title>Reserva de Veículos</title>
+</head>
+<body>
+ <h1>Reserva de Veículos</h1>
+ <form id="formReserva">
+ <label for="veiculo">Selecione um veículo:</label>
+ <select id="veiculo" name="veiculo" required>
+ <!-- Aqui você pode carregar dinamicamente os veículos
+cadastrados -->
+ </select><br><br>
+ <button type="submit">Reservar Veículo</button>
+ </form>
+ <script>
+
+document.getElementById('formReserva').addEventListener('submit',
+function(event) {
+ event.preventDefault();
+ const idVeiculo =
+document.getElementById('veiculo').value;
+ const idUsuario = 1; // Supondo que o usuário logado sejao ID 1 (admin)
+ fetch('/reservar', {
+ method: 'POST',
+ headers: {
+ 'Content-Type': 'application/json'
+ },
+ body: JSON.stringify({ idUsuario, idVeiculo })
+ })
+ .then(response => response.json())
+ .then(data => {
+ alert(data.message);
+ document.getElementById('formReserva').reset();
+ })
+ .catch(error => console.error('Erro:', error));
+ });
+ // Função para carregar os veículos do backend e popular o
+select
+ fetch('/veiculos')
+ .then(response => response.json())
+ .then(data => {
+ const selectVeiculo =
+document.getElementById('veiculo');
+ data.forEach(veiculo => {
+ const option = document.createElement('option');
+option.value = veiculo.id;
+option.textContent = `${veiculo.marca} -
+${veiculo.modelo}`;
+ selectVeiculo.appendChild(option);
+});
+ })
+ .catch(error => console.error('Erro ao carregarveículos:', error));
+ </script>
+</body>
+</html>
