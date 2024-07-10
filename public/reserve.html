@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reserve</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <h1>Reserva de Veiculo</h1>
+    <form id="reserveForm">
+        <label for="vehicle">Select carro:</label>
+        <select id="vehicle" name="vehicle"></select>
+        <br>
+        <button type="submit">Reservar</button>
+
+    </form>
+    <script src="/js/script.js"></script>
+    <script>
+        // Seleciona o elemento select
+        const selectElement = document.getElementById('vehicle');
+        
+        // Função para adicionar opção ao select
+        function addOption(text) {
+            const option = document.createElement('option');
+            option.textContent = text;
+            
+            selectElement.appendChild(option);
+        }
+
+        // Adicionar opções dinamicamente
+        addOption('civicG10', 'Honda Civic G10');
+        addOption('Celta', 'Chevrolet');
+        addOption('Jetta', 'VolksWagen');
+    </script>
+</body>
+</html>
